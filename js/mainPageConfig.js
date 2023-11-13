@@ -2,8 +2,6 @@
 const SERVERLINK ="https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
 let ALLQUIZZESLIST = []
 let requestReceived = ''
-
-
 // ============== functions =========================== //
 
 // function to add the quizzes to the main page --------------
@@ -50,11 +48,6 @@ function insertQuizzesOnThePage(){
     requestReceived = setInterval(waitingForServerResponse, 500)
 }
 
-// opening the quizz ---------------------------------------
-
-function openThisQuizz(idElement){
-    console.log(idElement)
-}
 
 
 // ============= main code =================== // 
