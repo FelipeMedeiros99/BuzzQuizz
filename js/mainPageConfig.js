@@ -1,6 +1,6 @@
 // ============== vars =========================== // 
-export const SERVERLINK ="https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
-export let ALLQUIZZESLIST = []
+const SERVERLINK ="https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+let ALLQUIZZESLIST = []
 let requestReceived = ''
 
 
@@ -49,7 +49,13 @@ function insertQuizzesOnThePage(){
     serverRequest()
     requestReceived = setInterval(waitingForServerResponse, 500)
 }
-//  --------------------------------------------------------
+
+// opening the quizz ---------------------------------------
+
+function openThisQuizz(idElement){
+    console.log(idElement)
+}
+
 
 // ============= main code =================== // 
 insertQuizzesOnThePage()
