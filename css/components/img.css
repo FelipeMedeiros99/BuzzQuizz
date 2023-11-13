@@ -1,0 +1,25 @@
+figure {
+    box-sizing: border-box;
+    width: 340px;
+    height: 181px;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+img {
+    width: 340px;
+    height: 181px;
+    border-radius: 5px;
+}
+
+figcaption {
+    position: absolute;
+    z-index: 2;
+    color: white;
+    bottom: 14px;
+    left: 18px;
+}
+
+figure.all-quizzes__list-quizzes__quizz{
+    cursor: pointer;
+}

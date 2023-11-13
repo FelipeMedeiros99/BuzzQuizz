@@ -1,0 +1,37 @@
+/* ====================== geral ======================= */
+*{  
+    font-family: 'Roboto';
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+:root{
+    --mobile-page-width: 375px;
+    --color-red-page: #EC362D;
+}
+
+/* ====================== header ====================== */
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    width: var(--mobile-page-width);
+    height: 69px;
+    background-color: var(--color-red-page);
+    position: fixed;
+    top: 0;
+    box-shadow: 0px 4px 4px #11111163;
+    z-index: 3;
+}
+
+/* ====================== main ======================== */
+
+main{
+    margin-top: 69px;
+}
