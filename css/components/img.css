@@ -1,25 +1,39 @@
+/* ------- general figures ------------- */
 figure {
-    box-sizing: border-box;
-    width: 340px;
-    height: 181px;
+    box-sizing: content-box;
     position: relative;
     margin-bottom: 14px;
 }
 
-img {
-    width: 340px;
-    height: 181px;
-    border-radius: 5px;
-}
+    img {
+        width: 340px;
+        height: 181px;
+        border-radius: 5px;
+    }
 
-figcaption {
-    position: absolute;
-    z-index: 2;
-    color: white;
-    bottom: 14px;
-    left: 18px;
-}
+    figcaption {
+        position: absolute;
+        z-index: 2;
+        color: white;
+        bottom: 14px;
+        left: 18px;
+    }
 
+
+/* ------------ pictures of main menu quizzes --------------- */
 figure.all-quizzes__list-quizzes__quizz{
     cursor: pointer;
 }
+
+/* ------------ answers figures ------------*/
+figure.active-quizz__questions-box__answers{
+    box-sizing: content-box;
+
+}
+
+
+img.alternative{
+    width: 163px;
+    height: 113px;
+}
+

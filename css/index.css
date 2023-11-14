@@ -35,3 +35,16 @@ header{
 main{
     margin-top: 69px;
 }
+
+
+.active-quizz__questions-box{
+}
+
+.active-quizz__answers-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 340px;
+    align-items: stretch;
+    justify-content: space-between;
+    
+}
