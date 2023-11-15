@@ -1,0 +1,83 @@
+/* ------- general figures ------------- */
+figure {
+    display: flex;
+    flex-direction: column;
+    box-sizing: content-box;
+    margin-bottom: 14px;
+    position: relative;
+}
+
+    img {
+        width: 340px;
+        height: 181px;
+    }
+
+    figcaption {
+        z-index: 2;
+        color: white;
+    }
+
+
+/* ------------ pictures of main menu quizzes --------------- */
+figure.all-quizzes__list-quizzes__quizz{
+    cursor: pointer;
+}
+
+
+/* ------------ main menu pictures ---------------------- */
+figure.all-quizzes__list-quizzes__quizz{
+    position: relative;
+}
+
+    figure.all-quizzes__list-quizzes__quizz img{
+        border-radius: 5px;
+    }
+
+    figure.all-quizzes__list-quizzes__quizz figcaption{
+        position: absolute;
+        bottom: 14px;
+        left: 18px;
+    }
+
+
+ /* ------------ header quizz picture --------- */
+ figure.active-quizz__header{
+    align-items: center;
+    justify-content: center;
+ }
+
+figure.active-quizz__header figcaption{
+    position: absolute;
+    font-weight: 400;
+    font-size: 19px;
+    color: rgb(255, 255, 255);
+}
+
+figure.active-quizz__header img{
+    width: 375px;
+    height: 142px;
+}
+
+/* ------------ answers figures ------------*/
+figure.active-quizz__questions-box__answers{
+    box-sizing: content-box;
+
+}
+
+    .alternative-figcaption{
+        position: static;
+        color: black;
+        font-weight: 700;
+        font-size: 13px;
+        margin-top: 10px;
+        
+
+    }
+
+
+    .alternative-img{
+        width: 163px;
+        height: 113px;
+        border-radius: 0;
+    }
+

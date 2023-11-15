@@ -10,3 +10,17 @@ h2{
     font-weight: 700;
 }
 
+h3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 340px;
+    height: 89px;
+    text-align: center;
+    border: solid 1px #dbdbdb;
+    color: white;
+    font-weight: 700;
+    font-size: 19px;
+    text-shadow: 1px 1px 1px #111;
+
+}

@@ -8,7 +8,7 @@ function createTitleQuizz(){
     activeQuizzClass.innerHTML = `
     <figure class="active-quizz__header">
         <img src="${selectedQuizz.image}">
-        <figcaption>${selectedQuizz.title}<figcaption>
+        <figcaption>${selectedQuizz.title}</figcaption>
     </figure>
     `
 }
@@ -37,8 +37,8 @@ function insertingAnswersInHTML(){
         answers[i].forEach(answer=>{
             questionsBox[i].innerHTML+= `
             <figure class="active-quizz__questions-box__answers">
-                <img class="alternative" src="${answer.image}">
-                <figcaption>${answer.text}</figcaption>
+                <img class="alternative-img" src="${answer.image}">
+                <figcaption class="alternative-figcaption">${answer.text}</figcaption>
             </figure>
             `
         })

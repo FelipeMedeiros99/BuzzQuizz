@@ -15,7 +15,6 @@ body{
     --color-red-page: #EC362D;
 }
 
-/* ====================== header ====================== */
 header{
     display: flex;
     align-items: center;
@@ -30,21 +29,27 @@ header{
     z-index: 3;
 }
 
-/* ====================== main ======================== */
+
 
 main{
     margin-top: 69px;
+    display: flex;
 }
 
+/* ============== active quizz screen ======================== */
 
-.active-quizz__questions-box{
+.active-quizz__questions-box{    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 18px;
+
 }
 
 .active-quizz__answers-box{
+    margin-top: 13px;
     display: flex;
     flex-wrap: wrap;
     width: 340px;
-    align-items: stretch;
     justify-content: space-between;
-    
 }
