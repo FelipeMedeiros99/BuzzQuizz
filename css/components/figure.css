@@ -61,6 +61,7 @@ figure.active-quizz__header img{
 /* ------------ answers figures ------------*/
 figure.active-quizz__questions-box__answers{
     box-sizing: content-box;
+    cursor: pointer;
 
 }
 
@@ -70,10 +71,15 @@ figure.active-quizz__questions-box__answers{
         font-weight: 700;
         font-size: 13px;
         margin-top: 10px;
-        
-
     }
 
+    .alternative-figcaption.correct-answer{
+        color: #009C22;
+    }
+
+    .alternative-figcaption.wrong-answer{
+        color: #FF0B0B;
+    }
 
     .alternative-img{
         width: 163px;

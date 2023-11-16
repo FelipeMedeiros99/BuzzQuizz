@@ -3,6 +3,7 @@ let selectedQuizz = ''
 let activeQuizzClass = document.querySelector('.active-quizz')
 let answers = []
 let questions = []
+let correctAnswers = []
 // opening the quizz ---------------------------------------
 function createTitleQuizz(){
     activeQuizzClass.innerHTML = `
@@ -14,13 +15,15 @@ function createTitleQuizz(){
 }
 
 function insertingQuestionsInHTML(){ 
+    let counter = 0
     selectedQuizz.questions.forEach(question =>{
         activeQuizzClass.innerHTML+=`
-        <div class="active-quizz__questions-box">
+        <div class="active-quizz__questions-box question-${counter}">
             <h3 style="background-color: ${question.color}">${question.title}</h3>
             <div class="active-quizz__answers-box"></div>
         </div>  
         `
+        counter += 1
     })
 }
 
@@ -29,6 +32,12 @@ function savingQuestionsAndAnswers(){
     questionsQuizz.forEach(question => {
         answers.push(question.answers)
     })
+}
+
+function savingCorrectAnswer(answer){
+     if(answer.isCorrectAnswer){
+        correctAnswers.push(answer.text)
+     }
 }
 
 function insertingAnswersInHTML(){
@@ -41,6 +50,7 @@ function insertingAnswersInHTML(){
                 <figcaption class="alternative-figcaption">${answer.text}</figcaption>
             </figure>
             `
+            savingCorrectAnswer(answer)
         })
     }
 }

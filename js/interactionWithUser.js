@@ -1,17 +1,47 @@
+let answersElementHTML = ''
+let UserQuestionsCorrects = 0
+let userQuestionsErrors = 0
+let anonymusFunction = ''
+
+function insertingEventListenerInAnswers(answersElementHTML){    
+    for(let i=0; i<answersElementHTML.length; i++){
+        let answerElement = answersElementHTML[i]
+        anonymusFunction = function(){
+            selectedAnswer(answerElement)
+        }
+        answerElement.addEventListener('click', anonymusFunction)
+    }
+}
+
+function deletingEventListernerInAnswers(answersElementHTML){
+    let boxAnswers = answersElementHTML.querySelectorAll('figure')
+    boxAnswers.forEach(boxAnswer => {
+        boxAnswer.removeEventListener('click', anonymusFunction)
+    })
+}
+
+
 function quizzIsSelected(){
-    let answersElementHTML = document.querySelectorAll('.active-quizz__questions-box__answers')
+    answersElementHTML = document.querySelectorAll('.active-quizz__questions-box__answers')
     if(answersElementHTML.length>0){
         clearInterval(verifyIfTheQuizzIsSelected)
-        answersElementHTML.forEach(element=>{
-            element.addEventListener('click', () => {
-                selectedAnswer(element)
-            })
-        })
+        insertingEventListenerInAnswers(answersElementHTML)
     }
 }
 
 function selectedAnswer(element){
-    console.log(element)
+    let answerUserHtmlElement = element.querySelector('figcaption')
+    let classNumberOfTheQuestion = element.parentNode.parentNode.classList[1]
+    let numberOfTheQuestion = parseInt(classNumberOfTheQuestion[classNumberOfTheQuestion.length-1])
+    
+    let answerUserIsCorrect = correctAnswers[numberOfTheQuestion] === answerUserHtmlElement.innerText  
+    if(answerUserIsCorrect){
+        answerUserHtmlElement.classList.add('correct-answer')
+    }else{
+        answerUserHtmlElement.classList.add('wrong-answer')
+    }
+    deletingEventListernerInAnswers(element.parentNode)
+    
 }
 
 
