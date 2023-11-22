@@ -45,7 +45,7 @@ function insertingAnswersInHTML(){
     for(let i=0; i< questionsBox.length; i++){
         answers[i].forEach(answer=>{
             questionsBox[i].innerHTML+= `
-            <figure class="active-quizz__questions-box__answers">
+            <figure onclick="selectThisAlternative(this)" class="active-quizz__questions-box__answers">
                 <img class="alternative-img" src="${answer.image}">
                 <figcaption class="alternative-figcaption">${answer.text}</figcaption>
             </figure>

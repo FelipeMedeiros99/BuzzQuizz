@@ -53,3 +53,7 @@ main{
     width: 340px;
     justify-content: space-between;
 }
+
+.not-selected{
+    opacity: 0.5;
+}
