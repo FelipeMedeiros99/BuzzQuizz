@@ -4,6 +4,7 @@ let activeQuizzClass = document.querySelector('.active-quizz')
 let answers = []
 let questions = []
 let correctAnswers = []
+let idElementGlobal = ''
 // opening the quizz ---------------------------------------
 function createTitleQuizz(){
     activeQuizzClass.innerHTML = `
@@ -78,6 +79,8 @@ function saveTheSelectedQuizz(idElement){
 
 function openThisQuizz(idElement){
     hideElement('.all-quizzes')
+    idElementGlobal = idElement
+    scrollTo(0,0)
     saveTheSelectedQuizz(idElement)    
     insertTheSelectedQuizzOnTheActiveQuizzPage()
     console.log(selectedQuizz)

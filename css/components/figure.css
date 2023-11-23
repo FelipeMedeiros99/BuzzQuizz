@@ -87,3 +87,10 @@ figure.active-quizz__questions-box__answers{
         border-radius: 0;
     }
 
+
+
+/* ------------- result figure ------------- */
+
+.result__img{
+    height: 255px;
+}

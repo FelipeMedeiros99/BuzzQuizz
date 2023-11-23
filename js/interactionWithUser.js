@@ -2,11 +2,14 @@ let answersElementHTML = ''
 let UserQuestionsCorrects = 0
 let userQuestionsErrors = 0
 
+
+//  --------- interaction with user in the questions quizz --------------- //
+
 function allQuestionsWereAnswered(){
     let numberOfQuestions = document.querySelectorAll('.active-quizz__questions-box').length
     let sumOfUserResponses = userQuestionsErrors + UserQuestionsCorrects
     if (numberOfQuestions === sumOfUserResponses){
-        alert("all questions was selected")
+        resultWindow()
     }
 }
 
@@ -44,9 +47,7 @@ function markGreenOrRedForTheOtherQuestions(element, numberQuestion){
 
 
     }
-    console.log(answers)
 }
-
 
 function selectThisAlternative(element){
     let parentElement = element.parentNode.parentNode
@@ -54,8 +55,6 @@ function selectThisAlternative(element){
     let numberQuestion = parseInt(parentElement.classList[1][indexOfNumberQuestion])
     let answerUser = element.querySelector('figcaption').innerText
     let elementAnswerUser = element.querySelector('figcaption')
-
-
 
     if (correctAnswers[numberQuestion] === answerUser){
         elementAnswerUser.classList.add('correct-answer')
@@ -72,52 +71,55 @@ function selectThisAlternative(element){
 
 }
 
+// ------------ results window ----------------------------- //
 
+function userLevel(percentage){
+    let levels = selectedQuizz.levels
+    let levelUser = ''
 
+    levels.forEach(level=>{
+        let percentageIsGreatherThanLevelMin = (percentage >= level.minValue)
+        if(percentageIsGreatherThanLevelMin){
+            levelUser = level
+        }
+    })
+    return levelUser
+}
 
-// let anonymusFunction = ''
+function goTo(element){
+    element.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+    })
+}
 
-// function insertingEventListenerInAnswers(answersElementHTML){    
-//     for(let i=0; i<answersElementHTML.length; i++){
-//         let answerElement = answersElementHTML[i]
-//         anonymusFunction = function(){
-//             selectedAnswer(answerElement)
-//         }
-//         answerElement.addEventListener('click', anonymusFunction)
-//     }
-// }
+function resultWindow(){
+    let elementQUizzAtivo = document.querySelector(".active-quizz")
+    let totalQuestions = userQuestionsErrors + UserQuestionsCorrects
+    let correctPercentage = Math.round((UserQuestionsCorrects/totalQuestions)*100)
+    let level = userLevel(correctPercentage)
+    console.log(level)
+    // console.log(selectedQuizz)
+    elementQUizzAtivo.innerHTML+= ` 
+    <div class="results">
+        <h2 class="results__title">${correctPercentage}% de acerto: ${level.title}</h2>
+        <img class="results__img" src="${level.image}">
+        <p class="results__text">${level.text}</p>
+        <button onclick="restartQuizz()" class="results__restart-button">Reiniciar Quizz</button>
+        <button onclick="resetQuizz()" class="results__reset-button">Voltar pra home</button>
+    </div>`
 
-// function deletingEventListernerInAnswers(answersElementHTML){
-//     let boxAnswers = answersElementHTML.querySelectorAll('figure')
-//     boxAnswers.forEach(boxAnswer => {
-//         boxAnswer.removeEventListener('click', anonymusFunction)
-//     })
-// }
+    goTo(document.querySelector('.results'))
+}
 
+function restartQuizz(){
+    let activeQuizz = document.querySelector('.active-quizz')
+    activeQuizz.innerHTML = ""
+    userQuestionsErrors = 0
+    UserQuestionsCorrects = 0    
+    openThisQuizz(idElementGlobal)
+}
 
-// function quizzIsSelected(){
-//     answersElementHTML = document.querySelectorAll('.active-quizz__questions-box__answers')
-//     if(answersElementHTML.length>0){
-//         clearInterval(verifyIfTheQuizzIsSelected)
-//         insertingEventListenerInAnswers(answersElementHTML)
-//     }
-// }
-
-// function selectedAnswer(element){
-//     let answerUserHtmlElement = element.querySelector('figcaption')
-//     let classNumberOfTheQuestion = element.parentNode.parentNode.classList[1]
-//     let numberOfTheQuestion = parseInt(classNumberOfTheQuestion[classNumberOfTheQuestion.length-1])
-    
-//     let answerUserIsCorrect = correctAnswers[numberOfTheQuestion] === answerUserHtmlElement.innerText  
-//     if(answerUserIsCorrect){
-//         answerUserHtmlElement.classList.add('correct-answer')
-//     }else{
-//         answerUserHtmlElement.classList.add('wrong-answer')
-//     }
-//     deletingEventListernerInAnswers(element.parentNode)
-    
-// }
-
-
-
-// let verifyIfTheQuizzIsSelected = setInterval(quizzIsSelected, 500)
+function resetQuizz(){
+    window.location.reload()
+}
