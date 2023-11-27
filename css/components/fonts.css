@@ -25,6 +25,11 @@ h3{
 
 }
 
+p{
+    font-size: 20px;
+    font-weight: 400;
+}
+
 
 /* ===== result window ===== */
 .results__title{
@@ -48,4 +53,13 @@ h3{
     font-size: 17px;
     margin-top: 18px;
     margin-bottom: 48px;
+}
+
+/* ====== section myquizzes - no quizz  */
+
+.my-quizzes__no-quizz p{
+    color: #B9B9B9;
+    text-align: center;
+    width: 250px;
+    margin-bottom: 50px;
 }

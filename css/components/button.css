@@ -24,3 +24,16 @@ button{
     margin-bottom: 66px;
 
 }
+
+/*  button of the my-quizzes section */
+.my-quizzes__no-quizz button{
+    border: 1px dashed; 
+    border-color: #EC362D;
+    color: #EC362D;
+    width: 151px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50px;
+    position: absolute;
+    bottom: 33px;
+}

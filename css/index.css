@@ -29,11 +29,26 @@ header{
     z-index: 3;
 }
 
-
-
 main{
     margin-top: 69px;
     display: flex;
+    flex-direction: column;
+    
+}
+
+/* =============== my quizzes section ======================== */
+
+.my-quizzes__no-quizz{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: dashed 1px #D4D4D4;
+    width: 340px;
+    height: 181px;
+    margin-top: 31px;
+    margin-bottom: 35px;
+    position: relative;
 }
 
 /* ============== active quizz screen ======================== */

@@ -13,3 +13,19 @@ function showElement(classElement){
         elementSelected.classList.add('oculto')
     }
 }
+
+function thisSectionIsHidden(nameSection, className){
+    let section = document.querySelector(nameSection)
+    let theSectionContainTheClass = section.classList.contains(className)
+
+    if (theSectionContainTheClass){return true}
+    return false
+}
+
+function hiddenWindow(nameClassToHidden){
+    
+    let sectionMyQuizzNoQuizz = document.querySelector(nameClassToHidden)
+    if(!thisSectionIsHidden(nameClassToHidden, 'oculto')){
+        sectionMyQuizzNoQuizz.classList.add('oculto')
+    }
+}
