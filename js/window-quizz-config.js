@@ -78,6 +78,7 @@ function saveTheSelectedQuizz(idElement){
 }
 
 function openThisQuizz(idElement){
+    hideElement('.my-quizzes')
     hideElement('.all-quizzes')
     idElementGlobal = idElement
     scrollTo(0,0)
