@@ -63,3 +63,14 @@ p{
     width: 250px;
     margin-bottom: 50px;
 }
+
+/* ======= create quizz box ======== */
+h2.title-box{
+    margin-top: 38px;
+    margin-bottom: 29px;
+}
+
+.config-answer-box h2{
+    margin-bottom: 12px;
+    margin-top: 28px;
+}

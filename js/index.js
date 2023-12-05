@@ -29,3 +29,9 @@ function hiddenWindow(nameClassToHidden){
         sectionMyQuizzNoQuizz.classList.add('oculto')
     }
 }
+
+function editClassElement(classToAdd, classToRemove){
+    let element = document.querySelector(`.${classToRemove}`)
+    element.classList.add(classToAdd)
+    element.classList.remove(classToRemove)
+}

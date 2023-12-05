@@ -85,6 +85,29 @@ main{
 }
 
 
-
-
 /* --------------- quizz window creating ----------- */
+
+
+
+.quizz-creation-window__box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.config-answer-box{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.level-box{
+    display: flex;
+    width: 375px;
+    height: 74px;
+    margin-bottom: 22px;
+    align-items: center;
+    justify-content: space-between;
+
+}

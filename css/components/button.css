@@ -37,3 +37,13 @@ button{
     position: absolute;
     bottom: 33px;
 }
+
+
+.quizz-creation-window__button{
+    width: 325px;
+    height: 54px;
+    background-color: #EC362D;
+    color: white;
+    margin-top: 28px;
+
+}
