@@ -4,15 +4,24 @@
 }
 
 
-input{
+textarea, input{
     width: 341px;
     height: 46px;
     border: 1px solid #D1D1D1;
     margin-bottom: 9px;
     padding-left: 14px;
+    text-wrap: wrap;
 }
 
-input::placeholder{
+input::placeholder, textarea::placeholder{
     color: #D1D1D1;
+    vertical-align: top;
 }
 
+
+textarea{
+    height: 177px;
+    width: 341px;
+    padding-top: 10px;
+
+}

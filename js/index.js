@@ -30,8 +30,7 @@ function hiddenWindow(nameClassToHidden){
     }
 }
 
-function editClassElement(classToAdd, classToRemove){
-    let element = document.querySelector(`.${classToRemove}`)
+function editClassElement(element, classToAdd, classToRemove){
     element.classList.add(classToAdd)
     element.classList.remove(classToRemove)
 }

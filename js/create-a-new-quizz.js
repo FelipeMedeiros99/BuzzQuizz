@@ -1,14 +1,34 @@
-// 
+let elementsOfStartAtTheBegin = {}
+
+// =========== window start at the beginning ================= //
+function proceedToCreateQuestions(element){
+    element = element.parentNode
+    let inputs = element.querySelectorAll('input')
+    inputs.forEach(input => {
+        elementsOfStartAtTheBegin[input.placeholder] = input.value
+    });
+
+    hideElement("."+element.classList[0])
+    createConfigAnswerBox()
+
+}
+
+
+
+// ================== create your questions ================ //
+
 function createIncorrectAnswers(element){
     for(let i=0; i<3; i++){
         element.innerHTML+=`
-        <input type="text" placeholder="resposta incorreta ${i}">
-        <input type="text" placeholder="URL da imagem">`
+        <input type="text" id="incorrectAnswer${i+1}" placeholder="resposta incorreta ${i+1}">
+        <input type="text" id="urlImage${i+1}" placeholder="URL da imagem">`
     }
 }
 
 function openAnswersConfig(element, numberQuestion){
-    editClassElement('config-answer-box', 'level-box')
+    editClassElement(element, 'config-answer-box', 'level-box')
+    element.onclick = null
+    console.log(element)
 
     element.innerHTML = `
     <h2>Pergunta ${numberQuestion}</h2>
@@ -24,11 +44,19 @@ function openAnswersConfig(element, numberQuestion){
     createIncorrectAnswers(element)
 }
 
+function createHeaderYourQuestions(){
+    document.querySelector('.create-your-questions').classList.toggle('oculto')
+}
 
 function createConfigAnswerBox(){
+    console.log(elementsOfStartAtTheBegin)
+
+    createHeaderYourQuestions()
+
     let configAnswerBox = document.querySelector('.config-answer-box')
     configAnswerBox.innerHTML=''
-    for(let i=0; i<3; i++){
+ 
+    for(let i=0; i<elementsOfStartAtTheBegin['Quantidade de níveis do quizz']; i++){
         configAnswerBox.innerHTML += `
         <div class="level-box" style="cursor:pointer;" onclick="openAnswersConfig(this, ${i+1})">
             <h2>Nível ${i+1}</h2>
@@ -42,17 +70,17 @@ function createConfigAnswerBox(){
 
 
 
-// creating levels
+// ============= creating levels ===================== //
 function openLevelsConfig(element, numberLevel){
-    editClassElement('config-answer-box', 'level-box')
+    editClassElement(element, 'config-answer-box', 'level-box')
+    element.onclick = null
 
     element.innerHTML = `
     <div class="config-answer-box">
-        <input type="text" placeholder="ads"></input>
-        <input type="text" placeholder="a"></input>
-        <input type="text" placeholder="as"></input>
-        <input type="text" placeholder="ads"></input>
-        <input style="height: 177px;" type="text" placeholder=""></input>
+        <input type="text" placeholder="Título do nível"></input>
+        <input type="text" placeholder="% de acerto mínima"></input>
+        <input type="text" placeholder="URL da imagem do nível"></input>
+        <textarea placeholder="Descrição do nível"></textarea>
     </div>
     `
 }
@@ -79,5 +107,4 @@ function decideTheLevels(){
 }
 
 
-createConfigAnswerBox()
 decideTheLevels()
