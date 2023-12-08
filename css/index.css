@@ -102,7 +102,7 @@ main{
     
 }
 
-.level-box{
+.level-box, .question-box{
     display: flex;
     width: 375px;
     height: 74px;

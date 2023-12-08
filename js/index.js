@@ -10,7 +10,7 @@ function showElement(classElement){
     let elementSelected = document.querySelector(classElement)
     let isOcultoInTheClassElement = elementSelected.classList.contains('oculto')
     if (isOcultoInTheClassElement){
-        elementSelected.classList.add('oculto')
+        elementSelected.classList.remove('oculto')
     }
 }
 

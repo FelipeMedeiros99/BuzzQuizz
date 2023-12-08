@@ -10,11 +10,32 @@ function proceedToCreateQuestions(element){
     });
 
     hideElement("."+element.classList[0])
-    createConfigAnswerBox()
+    createQuestions()
 
 }
 
-// ================== create your questions ================ //
+// ================== creating questions ================ //
+
+
+function SaveQuestionsAndCallTheLevelBox(element){
+    element = element.parentNode
+    
+    let inputs = element.querySelectorAll('input')
+    
+    inputs.forEach(input =>{
+        questionsInformations[input.placeholder]=input.value
+    })
+    saveQuestionsInformations(element)
+    hiddenWindow('.create-your-questions')
+    decideTheLevels()
+}
+
+
+function saveQuestionsInformations(element){
+    let inputs = element.querySelectorAll('input')
+    inputs.forEach(input => {console.log(input)})
+
+}
 
 function createIncorrectAnswers(element){
     for(let i=0; i<3; i++){
@@ -24,8 +45,8 @@ function createIncorrectAnswers(element){
     }
 }
 
-function openAnswersConfig(element, numberQuestion){
-    editClassElement(element, 'config-answer-box', 'level-box')
+function openQuestionOptions(element, numberQuestion){
+    editClassElement(element, 'config-answer-box', 'question-box')
     element.onclick = null
 
     element.innerHTML = `
@@ -40,38 +61,23 @@ function openAnswersConfig(element, numberQuestion){
     <h2>Respostas incorretas</h2>
     `
     createIncorrectAnswers(element)
+
 }
 
-function createHeaderYourQuestions(){
-    document.querySelector('.create-your-questions').classList.toggle('oculto')
-}
-
-function SaveQuestions(element){
-    element = element.parentNode
-    let inputs = element.querySelectorAll('input')
-
-    inputs.forEach(input =>{
-        questionsInformations[input.placeholder]=input.value
-    })
-
-    console.log(questionsInformations)
-}
-
-function createConfigAnswerBox(){
-    createHeaderYourQuestions()
-
+function createQuestions(){
+    showElement('.create-your-questions')
     let configAnswerBox = document.querySelector('.config-answer-box')
     configAnswerBox.innerHTML=''
- 
+
     for(let i=0; i<elementsOfStartAtTheBegin['Quantidade de perguntas do quizz']; i++){
         configAnswerBox.innerHTML += `
-        <div class="level-box" style="cursor:pointer;" onclick="openAnswersConfig(this, ${i+1})">
-            <h2>Nível ${i+1}</h2>
+        <div class="question-box" style="cursor:pointer;" onclick="openQuestionOptions(this, ${i+1})">
+            <h2>Pergunta ${i+1}</h2>
             <ion-icon name="create-outline"></ion-icon>
         </div>`
     }
     
-    configAnswerBox.innerHTML += `<button class="quizz-creation-window__button" onclick="SaveQuestions()">Prosseguir pra criar níveis</button>`
+    configAnswerBox.innerHTML += `<button class="quizz-creation-window__button" onclick="SaveQuestionsAndCallTheLevelBox(this)">Prosseguir pra criar níveis</button>`
 }
 
 
