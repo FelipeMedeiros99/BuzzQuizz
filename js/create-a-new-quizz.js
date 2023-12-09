@@ -16,25 +16,26 @@ function proceedToCreateQuestions(element){
 
 // ================== creating questions ================ //
 
+function saveQuestionsInformations(element){
+    let inputs = element.querySelectorAll('input')
+
+    for (let i = 0; i < elementsOfStartAtTheBegin['Quantidade de perguntas do quizz']; i++) {
+        let temporaryDataQuestions = {}
+        for(let i2=0; i2<inputs.length; i2++){
+            temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
+        }
+
+        questionsInformations[`Questao ${i}`] = temporaryDataQuestions
+    }
+}
 
 function SaveQuestionsAndCallTheLevelBox(element){
+
     element = element.parentNode
-    
-    let inputs = element.querySelectorAll('input')
-    
-    inputs.forEach(input =>{
-        questionsInformations[input.placeholder]=input.value
-    })
+
     saveQuestionsInformations(element)
     hiddenWindow('.create-your-questions')
     decideTheLevels()
-}
-
-
-function saveQuestionsInformations(element){
-    let inputs = element.querySelectorAll('input')
-    inputs.forEach(input => {console.log(input)})
-
 }
 
 function createIncorrectAnswers(element){
@@ -111,9 +112,6 @@ function decideTheLevels(){
     let elementDecideTheLevels = document.querySelector('.decide-the-levels')
     elementDecideTheLevels.innerHTML += `
     <h2 class="title-box">Agora, decida os níveis</h2>`
-
-    createLevels(elementDecideTheLevels)
-
-    
+    createLevels(elementDecideTheLevels)  
 }
 
