@@ -1,5 +1,6 @@
 let elementsOfStartAtTheBegin = {}
-let questionsInformations = {}
+let questionsInformations = []
+let questionsLevelsInformations = []
 
 // =========== window start at the beginning ================= //
 function proceedToCreateQuestions(element){
@@ -17,15 +18,18 @@ function proceedToCreateQuestions(element){
 // ================== creating questions ================ //
 
 function saveQuestionsInformations(element){
-    let inputs = element.querySelectorAll('input')
+    let boxQuestions = element.querySelectorAll('.config-answer-box')
 
-    for (let i = 0; i < elementsOfStartAtTheBegin['Quantidade de perguntas do quizz']; i++) {
+
+    for (let i = 0; i < boxQuestions.length; i++) {
         let temporaryDataQuestions = {}
+        let inputs = boxQuestions[i].querySelectorAll('input')
+        
         for(let i2=0; i2<inputs.length; i2++){
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
 
-        questionsInformations[`Questao ${i}`] = temporaryDataQuestions
+        questionsInformations.push(temporaryDataQuestions)
     }
 }
 
@@ -83,17 +87,39 @@ function createQuestions(){
 
 
 // ============= creating levels ===================== //
+
+function saveLevelInformation(element){
+    let boxQuestions = element.querySelectorAll('.config-answer-box')
+    for (let i = 0; i < boxQuestions.length; i++) {
+        let temporaryDataQuestions = {}
+        let inputs = boxQuestions[i].querySelectorAll('input')
+        
+        for(let i2=0; i2<inputs.length; i2++){
+            temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
+        }
+
+        questionsLevelsInformations[`Level ${i}`] = temporaryDataQuestions
+    }
+
+}
+
+function saveLevelsAndCallTheFinishPage(element){
+    element = element.parentNode
+    saveLevelInformation(element)
+    hiddenWindow('.'+element.classList[0])
+    sendToServer()
+}
+
+
 function openLevelsConfig(element, numberLevel){
     editClassElement(element, 'config-answer-box', 'level-box')
     element.onclick = null
 
     element.innerHTML = `
-    <div class="config-answer-box">
         <input type="text" placeholder="Título do nível"></input>
         <input type="text" placeholder="% de acerto mínima"></input>
         <input type="text" placeholder="URL da imagem do nível"></input>
         <textarea placeholder="Descrição do nível"></textarea>
-    </div>
     `
 }
 
@@ -113,5 +139,90 @@ function decideTheLevels(){
     elementDecideTheLevels.innerHTML += `
     <h2 class="title-box">Agora, decida os níveis</h2>`
     createLevels(elementDecideTheLevels)  
+    elementDecideTheLevels.innerHTML += `<button class="quizz-creation-window__button" onclick="saveLevelsAndCallTheFinishPage(this)">Finalizar Quizz</button>`
+
 }
 
+// ============ saving quizz in the cloud ============= //
+
+function sendToServer(){
+    console.log(elementsOfStartAtTheBegin)
+    console.log(questionsInformations)
+    console.log(questionsLevelsInformations)
+
+    questionsInformations.forEach(question =>{
+        
+    })
+
+
+
+    {
+        title = elementsOfStartAtTheBegin['Título do seu quizz'],
+        image = elementsOfStartAtTheBegin['URL da imagem do seu quizz'],
+        questions = [
+            {
+                title: "Título da pergunta 1",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 2",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+            {
+                title: "Título da pergunta 3",
+                color: "#123456",
+                answers: [
+                    {
+                        text: "Texto da resposta 1",
+                        image: "https://http.cat/411.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Texto da resposta 2",
+                        image: "https://http.cat/412.jpg",
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
+
+}
