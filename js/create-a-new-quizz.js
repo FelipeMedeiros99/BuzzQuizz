@@ -46,7 +46,7 @@ function createIncorrectAnswers(element){
     for(let i=0; i<3; i++){
         element.innerHTML+=`
         <input type="text" id="incorrectAnswer${i+1}" placeholder="resposta incorreta ${i+1}">
-        <input type="text" id="urlImage${i+1}" placeholder="URL da imagem">`
+        <input type="text" id="urlImage${i+1}" placeholder="URL da imagem ${i+1}">`
     }
 }
 
@@ -93,12 +93,14 @@ function saveLevelInformation(element){
     for (let i = 0; i < boxQuestions.length; i++) {
         let temporaryDataQuestions = {}
         let inputs = boxQuestions[i].querySelectorAll('input')
-        
+        let textareas = boxQuestions[i].querySelector('textarea')
+
+
         for(let i2=0; i2<inputs.length; i2++){
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
-
-        questionsLevelsInformations[`Level ${i}`] = temporaryDataQuestions
+        temporaryDataQuestions[textareas.placeholder] = textareas.value
+        questionsLevelsInformations.push(temporaryDataQuestions)
     }
 
 }
@@ -144,85 +146,85 @@ function decideTheLevels(){
 }
 
 // ============ saving quizz in the cloud ============= //
+function showInformation(info){
+    console.log(info)
+}
 
-function sendToServer(){
-    console.log(elementsOfStartAtTheBegin)
-    console.log(questionsInformations)
-    console.log(questionsLevelsInformations)
+function showError(erro){
+    console.log(erro)
+}
+
+
+function returnListQuestions(){
+    let listQuestions = []
+    let questionsElements = {}
 
     questionsInformations.forEach(question =>{
-        
+        questionsElements['title'] = question['Texto da pergunta']
+        questionsElements['color'] = question['Cor de fundo da pergunta']
+        questionsElements['answers'] = [
+            {   
+                text: question['Resposta correta'],
+                image: question['URL da imagem'],
+                isCorrectAnswer: true,
+            },
+            {
+                text: question['resposta incorreta 1'],
+                image: question['URL da imagem 1'],
+                isCorrectAnswer: false,
+            },
+            {
+                text: question['resposta incorreta 2'],
+                image: question['URL da imagem 2'],
+                isCorrectAnswer: false,
+            },
+            {
+                text: question['resposta incorreta 3'],
+                image: question['URL da imagem 3'],
+                isCorrectAnswer: false,
+            },
+        ]
+
+        listQuestions.push(questionsElements)
     })
 
+    return listQuestions
+}
+
+function returnLevelQuestions(){
+    let listLevels =[]
+    let temporaryLevels = {}
+
+    questionsLevelsInformations.forEach(level=>{
+        temporaryLevels['title'] = level['Título do nível']
+        temporaryLevels['image'] = level['URL da imagem do nível']
+        temporaryLevels['text'] = level['Descrição do nível']
+        temporaryLevels['minValue'] = level['% de acerto mínima']
+        listLevels.push(temporaryLevels)
+    })
+
+    return listLevels
+}
 
 
-    {
-        title = elementsOfStartAtTheBegin['Título do seu quizz'],
-        image = elementsOfStartAtTheBegin['URL da imagem do seu quizz'],
-        questions = [
-            {
-                title: "Título da pergunta 1",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 2",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-            {
-                title: "Título da pergunta 3",
-                color: "#123456",
-                answers: [
-                    {
-                        text: "Texto da resposta 1",
-                        image: "https://http.cat/411.jpg",
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: "Texto da resposta 2",
-                        image: "https://http.cat/412.jpg",
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-        ],
-        levels: [
-            {
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
-            },
-            {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
-                minValue: 50
-            }
-        ]
+function sendToServer(){
+    // console.log(elementsOfStartAtTheBegin)
+    // console.log(questionsInformations)
+    // console.log(questionsLevelsInformations)
+    let questions = returnListQuestions()
+    let levels = returnLevelQuestions()
+
+    elementsToPush =    {
+        title: elementsOfStartAtTheBegin['Título do seu quizz'],
+        image: elementsOfStartAtTheBegin['URL da imagem do seu quizz'],
+        questions: questions,
+        levels: levels
     }
+
+    console.log(elementsToPush)
+
+    let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
+    informationAboutTheSending.then(showInformation)
+    informationAboutTheSending.catch(showError)
 
 }
