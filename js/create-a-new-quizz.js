@@ -19,18 +19,17 @@ function proceedToCreateQuestions(element){
 
 function saveQuestionsInformations(element){
     let boxQuestions = element.querySelectorAll('.config-answer-box')
-
-
+    
     for (let i = 0; i < boxQuestions.length; i++) {
         let temporaryDataQuestions = {}
         let inputs = boxQuestions[i].querySelectorAll('input')
         
-        for(let i2=0; i2<inputs.length; i2++){
+        for(let i2=0; i2<inputs.length; i2++){    
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
-
         questionsInformations.push(temporaryDataQuestions)
     }
+
 }
 
 function SaveQuestionsAndCallTheLevelBox(element){
@@ -90,6 +89,7 @@ function createQuestions(){
 
 function saveLevelInformation(element){
     let boxQuestions = element.querySelectorAll('.config-answer-box')
+    
     for (let i = 0; i < boxQuestions.length; i++) {
         let temporaryDataQuestions = {}
         let inputs = boxQuestions[i].querySelectorAll('input')
@@ -155,11 +155,28 @@ function showError(erro){
 }
 
 
+
+function returnLevelQuestions(){
+    let listLevels =[]
+    
+    questionsLevelsInformations.forEach(level=>{
+        let temporaryLevels = {}
+        temporaryLevels['title'] = level['Título do nível']
+        temporaryLevels['image'] = level['URL da imagem do nível']
+        temporaryLevels['text'] = level['Descrição do nível']
+        temporaryLevels['minValue'] = level['% de acerto mínima']
+        listLevels.push(temporaryLevels)
+    })
+
+    return listLevels
+}
+
+
 function returnListQuestions(){
     let listQuestions = []
-    let questionsElements = {}
-
+    
     questionsInformations.forEach(question =>{
+        let questionsElements = {}
         questionsElements['title'] = question['Texto da pergunta']
         questionsElements['color'] = question['Cor de fundo da pergunta']
         questionsElements['answers'] = [
@@ -186,31 +203,14 @@ function returnListQuestions(){
         ]
 
         listQuestions.push(questionsElements)
+        
     })
 
     return listQuestions
 }
-
-function returnLevelQuestions(){
-    let listLevels =[]
-    let temporaryLevels = {}
-
-    questionsLevelsInformations.forEach(level=>{
-        temporaryLevels['title'] = level['Título do nível']
-        temporaryLevels['image'] = level['URL da imagem do nível']
-        temporaryLevels['text'] = level['Descrição do nível']
-        temporaryLevels['minValue'] = level['% de acerto mínima']
-        listLevels.push(temporaryLevels)
-    })
-
-    return listLevels
-}
-
+    
 
 function sendToServer(){
-    // console.log(elementsOfStartAtTheBegin)
-    // console.log(questionsInformations)
-    // console.log(questionsLevelsInformations)
     let questions = returnListQuestions()
     let levels = returnLevelQuestions()
 
@@ -223,8 +223,121 @@ function sendToServer(){
 
     console.log(elementsToPush)
 
+
+
     let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
     informationAboutTheSending.then(showInformation)
     informationAboutTheSending.catch(showError)
 
 }
+
+
+function teste(){   
+    let elementTest = {
+        title: "Você conhece o vasco?",
+        image: "https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/3454.png",
+        questions: [
+            {
+                title: "Quem é o maior artilheiro da história do Vasco da Gama?",
+                color: "#3fe716",
+                answers: [
+                    {
+                        text: "Roberto Dinamite",
+                        image: "https://i.superesportes.com.br/m9JFu7dYePANOG2vepde_HCl4fM=/1200x900/smart/imgsapp.mg.superesportes.com.br/app/noticia_126420360808/2023/01/08/3985546/roberto-dinamite-comemora-gol-pelo-vasco_1_53093.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Edmundo",
+                        image: "https://p2.trrsf.com/image/fget/cf/774/0/images.terra.com/2020/05/29/58592ce5cc2cc.jpeg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Romário",
+                        image: "https://conteudo.imguol.com.br/c/esporte/96/2020/07/28/romario-em-acao-pelo-vasco-em-partida-contra-o-gama-pela-copa-joao-havelange-em-2000-1595957609730_v2_1x1.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Juninho Pernambucano",
+                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK5yvyMElonmXkc4JAxq1STtKsEQsuJIrjbQ&usqp=CAU",
+                        isCorrectAnswer: false
+                        
+                    }, 
+                ]
+            },
+            {
+                title: "Qual estádio é conhecido como a casa do Vasco da Gama?",
+                color: "#37572f",
+                answers: [
+                    {
+                        text: "Estádio São Januário",
+                        image: "https://s2-ge.glbimg.com/LjDlYJ2X1BABpblbmu0IgdbWweg=/0x0:1920x1080/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2022/r/b/qzVMvBTOAiyiJguu5r8Q/sao-januario-4-foto.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "Estádio do Maracanã",
+                        image: "https://imagens.ebc.com.br/pfvme-yPKPipeKJZPk02DK3diCU=/1600x800/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/estadio_do_maracana2002140424.jpg?itok=kuNV9JxX",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Arena da Amazônia",
+                        image: "https://www.amazonasincrivel.com/wp-content/uploads/2021/12/15E21D92-EDB6-4140-B8F2-BCFD547BE164.jpeg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "Estádio Nilton Santos",
+                        image: "https://img.r7.com/images/estadio-nilton-santos-e-a-casa-do-botafogo-14102022164135207?dimensions=771x420&&&resize=771x420&crop=800x436+0+124",
+                        isCorrectAnswer: false
+                    },
+                    
+                ]
+            },
+            {
+                title: "Em que ano o Vasco da Gama conquistou a Libertadores da América pela primeira vez?",
+                color: "#c3ce2e",
+                answers: [
+                    {
+                        text: "1948",
+                        image: "https://static3.tcdn.com.br/img/img_prod/311840/trofeu_taca_libertadores_premium_38cm_107300_6_bce1636e1636328e62deb82bb8f2a5ff.jpg",
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: "2000",
+                        image: "https://static3.tcdn.com.br/img/img_prod/311840/trofeu_taca_libertadores_premium_38cm_107300_6_bce1636e1636328e62deb82bb8f2a5ff.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "1998",
+                        image: "https://static3.tcdn.com.br/img/img_prod/311840/trofeu_taca_libertadores_premium_38cm_107300_6_bce1636e1636328e62deb82bb8f2a5ff.jpg",
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: "2012",
+                        image: "https://static3.tcdn.com.br/img/img_prod/311840/trofeu_taca_libertadores_premium_38cm_107300_6_bce1636e1636328e62deb82bb8f2a5ff.jpg",
+                        isCorrectAnswer: false
+                    },
+                    
+                ]
+            }
+        ],
+        levels: [
+            {
+                title: "Título do nível 1",
+                image: "https://http.cat/411.jpg",
+                text: "Descrição do nível 1",
+                minValue: 0
+            },
+            {
+                title: "Título do nível 2",
+                image: "https://http.cat/412.jpg",
+                text: "Descrição do nível 2",
+                minValue: 50
+            }
+        ]
+    }
+    let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementTest)
+        informationAboutTheSending.then(showInformation)
+        informationAboutTheSending.catch(showError)    
+}
+
+
+teste()
