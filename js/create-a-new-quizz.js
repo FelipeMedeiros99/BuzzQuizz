@@ -1,17 +1,27 @@
 let elementsOfStartAtTheBegin = {}
 let questionsInformations = []
 let questionsLevelsInformations = []
+let myQuizzesCreateds = []
 
 // =========== window start at the beginning ================= //
 function proceedToCreateQuestions(element){
     element = element.parentNode
     let inputs = element.querySelectorAll('input')
+    let confirm = true
+
     inputs.forEach(input => {
+        if (input.value.length > 2497 || input.value.length<1){
+            alert('Pode haver elementos vazios ou muito grandes. Verifique')
+            confirm = false
+            
+        }
         elementsOfStartAtTheBegin[input.placeholder] = input.value
     });
 
-    hideElement("."+element.classList[0])
-    createQuestions()
+    if (confirm){
+        hideElement("."+element.classList[0])
+        createQuestions()
+    }
 
 }
 
@@ -25,10 +35,16 @@ function saveQuestionsInformations(element){
         let inputs = boxQuestions[i].querySelectorAll('input')
         
         for(let i2=0; i2<inputs.length; i2++){    
+            if(inputs[i2].value.length < 1 || inputs[i2].value.length > 297 ){
+                return false
+            }
+
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
         questionsInformations.push(temporaryDataQuestions)
     }
+
+    return true
 
 }
 
@@ -36,9 +52,15 @@ function SaveQuestionsAndCallTheLevelBox(element){
 
     element = element.parentNode
 
-    saveQuestionsInformations(element)
-    hiddenWindow('.create-your-questions')
-    decideTheLevels()
+    let allElementsIsOk = saveQuestionsInformations(element)
+    
+    if(allElementsIsOk){
+        hiddenWindow('.create-your-questions')
+        decideTheLevels()
+    }
+    else{
+        alert('Pode ser que haja elementos vazios ou muito grandes. verifique')
+    }
 }
 
 function createIncorrectAnswers(element){
@@ -97,19 +119,29 @@ function saveLevelInformation(element){
 
 
         for(let i2=0; i2<inputs.length; i2++){
+            if(inputs[i2].value.length > 2497 || inputs[i2].value.length <1){
+                return false
+            }
+
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
         temporaryDataQuestions[textareas.placeholder] = textareas.value
         questionsLevelsInformations.push(temporaryDataQuestions)
     }
+    return true
 
 }
 
 function saveLevelsAndCallTheFinishPage(element){
     element = element.parentNode
-    saveLevelInformation(element)
-    hiddenWindow('.'+element.classList[0])
-    sendToServer()
+    let allElementsIsOk = saveLevelInformation(element)
+    if(allElementsIsOk){
+        hiddenWindow('.'+element.classList[0])
+        sendToServer()
+    }
+    else{
+        alert('Pode ser que haja elementos vazios ou muito grandes. Verifique.')
+    }
 }
 
 
@@ -146,14 +178,34 @@ function decideTheLevels(){
 }
 
 // ============ saving quizz in the cloud ============= //
+function windowCreatedQuizz(){
+    let yourQuizzWasCreated = document.querySelector('.your-quizz-was-created')
+    showElement('.your-quizz-was-created')
+    yourQuizzWasCreated.innerHTML+= `
+    <h2 style="margin-top: 39px; margin-bottom: 29px;">Seu quizz está pronto!</h2>
+
+    <figure style="width: 340px; height: 181px;">
+        <img style="margin-bottom: 24px;" src="${elementsOfStartAtTheBegin['URL da imagem do seu quizz']}">
+        <figcaption style="position: absolute; bottom: 8px; left: 8px">${elementsOfStartAtTheBegin['Título do seu quizz']}</figcaption>
+    </figure>
+
+    <button class="results__restart-button">Acessar quizz</button>
+    <button class="results__reset-button">Voltar para home</button>
+
+
+    `
+
+}
+
 function showInformation(info){
-    console.log(info)
+    console.log(info.data)
+    myQuizzesCreateds.push(info.data)
+
 }
 
 function showError(erro){
     console.log(erro)
 }
-
 
 
 function returnLevelQuestions(){
@@ -221,13 +273,11 @@ function sendToServer(){
         levels: levels
     }
 
-    console.log(elementsToPush)
-
-
-
     let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
     informationAboutTheSending.then(showInformation)
     informationAboutTheSending.catch(showError)
+
+    windowCreatedQuizz()
 
 }
 
@@ -321,15 +371,15 @@ function teste(){
         ],
         levels: [
             {
-                title: "Título do nível 1",
-                image: "https://http.cat/411.jpg",
-                text: "Descrição do nível 1",
-                minValue: 0
+                title: "Você já assistiu algum jogo do vasco???",
+                image: "https://www.galaticosonline.com/fotos/noticias/101586/mg/diniz.jpg",
+                text: "Parece que você não conhece nenhum pouquinho o vascão",
+                minValue: 34
             },
             {
-                title: "Título do nível 2",
-                image: "https://http.cat/412.jpg",
-                text: "Descrição do nível 2",
+                title: "você sabe tudo sobre o vasco!!!",
+                image: "https://img.r7.com/images/cano-vasco-taca-rio-2021-22052021175139801?dimensions=677x369",
+                text: "Você poderia facilmente escrever um livro sobre o vasco",
                 minValue: 50
             }
         ]
@@ -338,6 +388,3 @@ function teste(){
         informationAboutTheSending.then(showInformation)
         informationAboutTheSending.catch(showError)    
 }
-
-
-teste()
