@@ -78,6 +78,7 @@ function saveTheSelectedQuizz(idElement){
 }
 
 function openThisQuizz(idElement){
+    hideElement('.your-quizz-was-created')
     hideElement('.my-quizzes')
     hideElement('.all-quizzes')
     idElementGlobal = idElement

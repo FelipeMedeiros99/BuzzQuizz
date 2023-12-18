@@ -1,7 +1,8 @@
 let elementsOfStartAtTheBegin = {}
 let questionsInformations = []
 let questionsLevelsInformations = []
-let myQuizzesCreateds = []
+let myQuizzesCreateds = JSON.parse(localStorage.getItem('my-quizzes'))
+let localId = null
 
 // =========== window start at the beginning ================= //
 function proceedToCreateQuestions(element){
@@ -10,11 +11,14 @@ function proceedToCreateQuestions(element){
     let confirm = true
 
     inputs.forEach(input => {
-        if (input.value.length > 2497 || input.value.length<1){
-            alert('Pode haver elementos vazios ou muito grandes. Verifique')
+        if (input.value.length > 2497){
+            alert(`o elemento "${input.placeholder}" é muito grande. substitua por outro menor`)
             confirm = false
-            
+        }else if(input.value.length<1){
+            alert(`o elemento "${input.placeholder}" está vazio`)
+            confirm = false
         }
+
         elementsOfStartAtTheBegin[input.placeholder] = input.value
     });
 
@@ -35,9 +39,14 @@ function saveQuestionsInformations(element){
         let inputs = boxQuestions[i].querySelectorAll('input')
         
         for(let i2=0; i2<inputs.length; i2++){    
-            if(inputs[i2].value.length < 1 || inputs[i2].value.length > 297 ){
+            if(inputs[i2].value.length < 1){
+                alert(`O elemento "${inputs[i2].placeholder}" está vazio`)
+                return false
+            }else if(inputs[i2].value.length > 297 ){
+                alert(`O elemento "${inputs[i2].placeholder}" é muito grande. Substitua por outro menor`)
                 return false
             }
+
 
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
@@ -57,9 +66,6 @@ function SaveQuestionsAndCallTheLevelBox(element){
     if(allElementsIsOk){
         hiddenWindow('.create-your-questions')
         decideTheLevels()
-    }
-    else{
-        alert('Pode ser que haja elementos vazios ou muito grandes. verifique')
     }
 }
 
@@ -119,10 +125,13 @@ function saveLevelInformation(element){
 
 
         for(let i2=0; i2<inputs.length; i2++){
-            if(inputs[i2].value.length > 2497 || inputs[i2].value.length <1){
+            if(inputs[i2].value.length > 2497){
+                alert(`O elemento "${inputs[i2].placeholder}" está vazio`)
+                return false
+            }else if(inputs[i2].value.length <1){
+                alert(`O elemento "${inputs[i2].placeholder}" é muito grande, substitua por outro menor`)
                 return false
             }
-
             temporaryDataQuestions[inputs[i2].placeholder] = inputs[i2].value 
         }
         temporaryDataQuestions[textareas.placeholder] = textareas.value
@@ -138,9 +147,6 @@ function saveLevelsAndCallTheFinishPage(element){
     if(allElementsIsOk){
         hiddenWindow('.'+element.classList[0])
         sendToServer()
-    }
-    else{
-        alert('Pode ser que haja elementos vazios ou muito grandes. Verifique.')
     }
 }
 
@@ -189,18 +195,19 @@ function windowCreatedQuizz(){
         <figcaption style="position: absolute; bottom: 8px; left: 8px">${elementsOfStartAtTheBegin['Título do seu quizz']}</figcaption>
     </figure>
 
-    <button class="results__restart-button">Acessar quizz</button>
-    <button class="results__reset-button">Voltar para home</button>
-
-
+    <button onclick="openThisQuizz(${localId})" class="results__restart-button">Acessar quizz</button>
+    <button onclick="window.location.reload()" class="results__reset-button">Voltar para home</button>
     `
-
 }
 
-function showInformation(info){
+function saveQuizz(info){
+    if(!myQuizzesCreateds){
+        myQuizzesCreateds = []
+    }
     console.log(info.data)
-    myQuizzesCreateds.push(info.data)
-
+    myQuizzesCreateds.push(info.data.id)
+    localStorage.setItem('my-quizzes', JSON.stringify(myQuizzesCreateds))
+    localId = info.data.id
 }
 
 function showError(erro){
@@ -273,9 +280,9 @@ function sendToServer(){
         levels: levels
     }
 
-    let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
-    informationAboutTheSending.then(showInformation)
-    informationAboutTheSending.catch(showError)
+        // let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
+        // informationAboutTheSending.then(saveQuizz)
+        // informationAboutTheSending.catch(showError)
 
     windowCreatedQuizz()
 

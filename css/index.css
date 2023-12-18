@@ -99,6 +99,7 @@ main{
 .config-answer-box{
     display: flex;
     flex-direction: column;
+ 
     
 }
 
