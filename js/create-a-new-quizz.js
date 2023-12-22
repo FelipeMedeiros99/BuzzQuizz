@@ -5,6 +5,14 @@ let myQuizzesCreateds = JSON.parse(localStorage.getItem('my-quizzes'))
 let localId = null
 
 // =========== window start at the beginning ================= //
+function createANewQuizz(){
+    hideElement('.my-quizzes')
+    hideElement('.all-quizzes')
+    hideElement('.active-quizz')
+    showElement('.begin-with-start')
+}
+
+
 function proceedToCreateQuestions(element){
     element = element.parentNode
     let inputs = element.querySelectorAll('input')
@@ -175,6 +183,7 @@ function createLevels(element){
 }
 
 function decideTheLevels(){
+    showElement('.decide-the-levels')
     let elementDecideTheLevels = document.querySelector('.decide-the-levels')
     elementDecideTheLevels.innerHTML += `
     <h2 class="title-box">Agora, decida os níveis</h2>`
@@ -208,6 +217,9 @@ function saveQuizz(info){
     myQuizzesCreateds.push(info.data.id)
     localStorage.setItem('my-quizzes', JSON.stringify(myQuizzesCreateds))
     localId = info.data.id
+    serverRequest()
+
+    windowCreatedQuizz()
 }
 
 function showError(erro){
@@ -280,12 +292,9 @@ function sendToServer(){
         levels: levels
     }
 
-        // let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
-        // informationAboutTheSending.then(saveQuizz)
-        // informationAboutTheSending.catch(showError)
-
-    windowCreatedQuizz()
-
+        let informationAboutTheSending = axios.post('https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes', elementsToPush)
+        informationAboutTheSending.then(saveQuizz)
+        informationAboutTheSending.catch(showError)
 }
 
 

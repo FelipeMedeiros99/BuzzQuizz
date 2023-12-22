@@ -49,6 +49,12 @@ function insertQuizzesOnThePage(){
 }
 
 
+// ============= quizzes createds ==============
+function verifyIfWasQuizzesCreates(){
+    let idsQuizzesCreatedes =  localStorage['my-quizzes']
+}
+
+
 
 // ============= main code =================== // 
 insertQuizzesOnThePage()
