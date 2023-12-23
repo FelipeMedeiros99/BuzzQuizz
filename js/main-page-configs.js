@@ -12,8 +12,11 @@ function stopWaiting(){
 
 function insertQuizzesOnTheMainPage(){
     let  htmlOflistQuizzes = document.querySelector('.all-quizzes__list-quizzes')
+    let idsQuizzesCreateds = localStorage['my-quizzes']
 
-    let idsQuizzesCreateds = JSON.parse(localStorage['my-quizzes'])
+    if(idsQuizzesCreateds !== undefined){
+        idsQuizzesCreateds = JSON.parse(idsQuizzesCreateds)
+    }
     
     ALLQUIZZESLIST.forEach(quizz=>{
 
@@ -73,7 +76,10 @@ function insertQuizzesOnThePage(){
 // ============= quizzes createds ==============
 function insertMyCreatedQuizzesOnThePage(){
     let  htmlOflistQuizzes = document.querySelector('.my-quizzes__with-quizz')
-    idsQuizzesCreateds = JSON.parse(localStorage['my-quizzes'])
+    idsQuizzesCreateds = localStorage['my-quizzes']
+    if(idsQuizzesCreateds !== undefined){
+        idsQuizzesCreateds = JSON.parse(localStorage['my-quizzes'])
+    }
 
 
     htmlOflistQuizzes.innerHTML = `
@@ -87,7 +93,6 @@ function insertMyCreatedQuizzesOnThePage(){
 
 
     ALLQUIZZESLIST.forEach(quizz=>{
-        console.log(quizz.id in idsQuizzesCreateds)
         if(idsQuizzesCreateds.indexOf(quizz.id) !== -1){
 
 
