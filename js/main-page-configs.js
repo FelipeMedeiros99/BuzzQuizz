@@ -12,20 +12,41 @@ function stopWaiting(){
 
 function insertQuizzesOnTheMainPage(){
     let  htmlOflistQuizzes = document.querySelector('.all-quizzes__list-quizzes')
+
+    let idsQuizzesCreateds = JSON.parse(localStorage['my-quizzes'])
+    
     ALLQUIZZESLIST.forEach(quizz=>{
-        htmlOflistQuizzes.innerHTML += `
-        <figure id=${quizz.id} class="all-quizzes__list-quizzes__quizz" onclick="openThisQuizz(id)">
+
+        if(idsQuizzesCreateds !== undefined){
+            if(idsQuizzesCreateds.indexOf(quizz.id) === -1){
+    
+                htmlOflistQuizzes.innerHTML += `
+                <figure id=${quizz.id} class="all-quizzes__list-quizzes__quizz" onclick="openThisQuizz(id)">
+                <img src="${quizz.image}">
+                <figcaption>${quizz.title}</figcaption>
+                </figure>
+                `        
+            }
+        }
+
+        else{
+            htmlOflistQuizzes.innerHTML += `
+            <figure id=${quizz.id} class="all-quizzes__list-quizzes__quizz" onclick="openThisQuizz(id)">
             <img src="${quizz.image}">
             <figcaption>${quizz.title}</figcaption>
-        </figure>
-        `        
+            </figure>
+            `       
+        }
+
     })
 }
 
 function waitingForServerResponse(){
     if(ALLQUIZZESLIST.length === 50){
+        console.log(ALLQUIZZESLIST)
         stopWaiting()
         insertQuizzesOnTheMainPage()
+        verifyIfWasQuizzesCreates()
     }
 }
 
@@ -50,11 +71,53 @@ function insertQuizzesOnThePage(){
 
 
 // ============= quizzes createds ==============
+function insertMyCreatedQuizzesOnThePage(){
+    let  htmlOflistQuizzes = document.querySelector('.my-quizzes__with-quizz')
+    idsQuizzesCreateds = JSON.parse(localStorage['my-quizzes'])
+
+
+    htmlOflistQuizzes.innerHTML = `
+    <div class="my-quizzes-created">
+        <h2>Seus Quizzes</h2>
+        <ion-icon class="create-a-new-quizz" name="add-outline" onclick="createANewQuizz()"></ion-icon>
+
+    <div>
+    
+    `
+
+
+    ALLQUIZZESLIST.forEach(quizz=>{
+        console.log(quizz.id in idsQuizzesCreateds)
+        if(idsQuizzesCreateds.indexOf(quizz.id) !== -1){
+
+
+            htmlOflistQuizzes.innerHTML += `
+
+            <figure id=${quizz.id} class="all-quizzes__list-quizzes__quizz" onclick="openThisQuizz(id)">
+                <img src="${quizz.image}">
+                <figcaption>${quizz.title}</figcaption>
+            </figure>
+            `      
+        }
+
+         
+    })
+
+    showElement('.my-quizzes__with-quizz')
+}
+
 function verifyIfWasQuizzesCreates(){
-    let idsQuizzesCreatedes =  localStorage['my-quizzes']
+    if(localStorage['my-quizzes'] == undefined){
+        showElement('.my-quizzes__no-quizz')
+
+    }else{
+        insertMyCreatedQuizzesOnThePage()
+    }
+    
 }
 
 
 
 // ============= main code =================== // 
-insertQuizzesOnThePage()
+insertQuizzesOnThePage('.all-quizzes__list-quizzes')
+

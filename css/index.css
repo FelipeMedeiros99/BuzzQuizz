@@ -51,6 +51,17 @@ main{
     position: relative;
 }
 
+
+.my-quizzes-created{
+    display:flex; 
+    align-items: center;
+    margin-top: 36px;
+    margin-bottom: 16px;
+    position: relative
+
+
+}
+
 /* ============== active quizz screen ======================== */
 
 .active-quizz__questions-box{    
@@ -86,7 +97,6 @@ main{
 
 
 /* --------------- quizz window creating ----------- */
-
 
 
 .quizz-creation-window__box{
