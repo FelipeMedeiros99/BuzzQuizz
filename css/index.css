@@ -53,13 +53,25 @@ main{
 
 
 .my-quizzes-created{
-    display:flex; 
+    display:flex;
+    flex-direction: column; 
     align-items: center;
     margin-top: 36px;
     margin-bottom: 16px;
     position: relative
 
 
+}
+
+.my-quizzes__with-quizz__links{
+    margin-top: 15px;
+}
+
+.my-quizzes-created__legend{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 340px;
 }
 
 /* ============== active quizz screen ======================== */
@@ -135,5 +147,46 @@ main{
         width: 100%;
     }
 
+    .all-quizzes__list-quizzes, .my-quizzes__with-quizz__links{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 1066px;
+        flex-wrap: wrap;
+    }
+
+    .all-quizzes{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .all-quizzes h2{
+        width: 1066px;
+    }
+
+    .my-quizzes-created__legend{
+        width: 1066px;
+        justify-content: left;
+    }
+
+    .my-quizzes-created__legend h2{
+        margin-right: 26px;
+    }
+
+    .my-quizzes__no-quizz{
+        width: 1066px;
+    }
+
+    main{
+        width: 100%;
+        justify-content: center;
+    }
+
+    .active-quizz__answers-box{
+        width: 670px;
+        /* height: 676px; */
+    }
 
 }

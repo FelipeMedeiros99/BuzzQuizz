@@ -5,8 +5,6 @@ ion-icon{
 }
 
 ion-icon.create-a-new-quizz{
-    position: absolute;
-    right: 0; 
     color: white; 
     background-color: #EC362D; 
     border-radius: 15px;

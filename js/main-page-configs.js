@@ -46,7 +46,6 @@ function insertQuizzesOnTheMainPage(){
 
 function waitingForServerResponse(){
     if(ALLQUIZZESLIST.length === 50){
-        console.log(ALLQUIZZESLIST)
         stopWaiting()
         insertQuizzesOnTheMainPage()
         verifyIfWasQuizzesCreates()
@@ -84,20 +83,18 @@ function insertMyCreatedQuizzesOnThePage(){
 
     htmlOflistQuizzes.innerHTML = `
     <div class="my-quizzes-created">
-        <h2>Seus Quizzes</h2>
-        <ion-icon class="create-a-new-quizz" name="add-outline" onclick="createANewQuizz()"></ion-icon>
-
+        <nav class="my-quizzes-created__legend">
+            <h2>Seus Quizzes</h2>
+            <ion-icon class="create-a-new-quizz" name="add-outline" onclick="createANewQuizz()"></ion-icon>
+        </nav>
+        <div class="my-quizzes__with-quizz__links"></div>
     <div>
-    
     `
 
-
+    let linksQuizzes = document.querySelector('.my-quizzes__with-quizz__links')
     ALLQUIZZESLIST.forEach(quizz=>{
         if(idsQuizzesCreateds.indexOf(quizz.id) !== -1){
-
-
-            htmlOflistQuizzes.innerHTML += `
-
+            linksQuizzes.innerHTML += `
             <figure id=${quizz.id} class="all-quizzes__list-quizzes__quizz" onclick="openThisQuizz(id)">
                 <img src="${quizz.image}">
                 <figcaption>${quizz.title}</figcaption>
