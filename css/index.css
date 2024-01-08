@@ -150,7 +150,7 @@ main{
     .all-quizzes__list-quizzes, .my-quizzes__with-quizz__links{
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        /* justify-content: space-between; */
         width: 1066px;
         flex-wrap: wrap;
     }
@@ -189,4 +189,14 @@ main{
         /* height: 676px; */
     }
 
+    .legend-results{
+        display: flex;
+        margin-bottom: 79px;
+        width: 670px;
+        justify-content: space-between;
+    }
+
+   .question-box{
+    width: 564px;
+   }
 }

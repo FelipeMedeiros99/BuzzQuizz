@@ -103,8 +103,10 @@ function resultWindow(){
     elementQUizzAtivo.innerHTML+= ` 
     <div class="results">
         <h2 class="results__title">${correctPercentage}% de acerto: ${level.title}</h2>
-        <img class="results__img" src="${level.image}">
-        <p class="results__text">${level.text}</p>
+        <div class="legend-results">
+            <img class="results__img" src="${level.image}">
+            <p class="results__text">${level.text}</p>
+        </div>
         <button onclick="restartQuizz()" class="results__restart-button">Reiniciar Quizz</button>
         <button onclick="resetQuizz()" class="results__reset-button">Voltar pra home</button>
     </div>`

@@ -47,3 +47,23 @@ button{
     margin-top: 28px;
 
 }
+
+@media(min-width:1100px){
+
+    button{
+        font-size: 22px;
+    }
+    
+    .results__restart-button{
+        width: 221px;
+        height: 44px;
+    }
+
+    .quizz-creation-window__button{
+        width: 370px;
+    }
+    .results__restart-button{
+        width: 261px;
+    }
+    
+}

@@ -25,3 +25,16 @@ textarea{
     padding-top: 10px;
 
 }
+
+
+@media(min-width:1100px){
+    textarea, input{
+        height: 46px;
+        width: 564px;
+    }
+    input::placeholder, textarea::placeholder{
+        font-size: 19px;
+    }
+
+   
+}

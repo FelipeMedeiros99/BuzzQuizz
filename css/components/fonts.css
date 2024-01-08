@@ -78,6 +78,13 @@ h2.title-box{
 
 
 @media(min-width:1100px){
+    h2{
+        font-size: 23px;
+    }
+    .results__title{
+        width: 670px;
+        height: 99px;
+    }
     h3{
         width: 673px;
     }

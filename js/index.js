@@ -34,3 +34,4 @@ function editClassElement(element, classToAdd, classToRemove){
     element.classList.add(classToAdd)
     element.classList.remove(classToRemove)
 }
+

@@ -105,7 +105,28 @@ figure.active-quizz__questions-box__answers{
     .alternative-img{
         width: 330px;
         height: 175px;
-
     }
 
+    .my-quizzes img{
+        margin-right: 15px;
+    }
+
+    .all-quizzes img{
+        margin-right: 15px;
+    }
+
+    .legend-results img{
+        width: 364px;
+        height: 273px;
+        margin-right: 21px;
+    }
+
+    .your-quizz-was-created figure{
+        width: 500px !important;
+        height: 300px !important    ; 
+    }
+    .your-quizz-was-created img{
+        width: 500px;
+        height: 266px;
+    }
 }
